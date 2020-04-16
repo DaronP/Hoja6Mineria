@@ -1,6 +1,7 @@
 install.packages("e1071")
 install.packages("dummies")
 install.packages("caret")
+install.packages("")
 
 library(caret)
 library(dummies)
@@ -23,13 +24,13 @@ train <- datos[corte,]
 test <- datos[-corte,]
 
 #------------------DESDE ACA TENGO DUDA----------------
-modelo <- glm(SaleCondition_normal~., data = train[,c()], family = binomial(), maxit=100)
+modelo <- glm(datosNormal~., data = train[,c(44, 47, 81, 86)], family = binomial(), maxit=100)
 
 
 
-pred <- predict(modelo, newdata = test[], type = "response")
+pred <- predict(modelo, newdata = test[,c(44, 47, 81)], type = "response")
 prediccion<-ifelse(pred>=0.5,1,0)
-confusionMatrix(as.factor(test$SaleCondition_Normal),as.factor(prediccion))
+confusionMatrix(as.factor(test$datosNormal),as.factor(prediccion))
 #------------------HASTA ACA------------------------------
 
 
