@@ -2,12 +2,14 @@ install.packages("e1071")
 install.packages("dummies")
 install.packages("caret")
 install.packages("nortest")
+install.packages("corrplot")
 
 library(caret)
 library(dummies)
 #library(dummy)
 library(e1071)
 library(nortest)
+library(corrplot)
 
 
 datos <- read.csv('train.csv')
@@ -22,6 +24,8 @@ train <- datos[corte,]
 test <- datos[-corte,]
 
 #-------------Normalidad-------
+matriz <- cor(train[,c(44, 47, 81)])
+corrplot(matriz)
 
 plot(datos$SaleCondition)
 
@@ -41,6 +45,8 @@ plot(density(datos$GrLivArea))
 lillie.test(datos$SalePrice)
 lillie.test(datos$X1stFlrSF)
 lillie.test(datos$GrLivArea)
+
+
 
 
 
