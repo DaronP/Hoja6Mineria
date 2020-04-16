@@ -1,20 +1,18 @@
 install.packages("e1071")
 install.packages("dummies")
 install.packages("caret")
-install.packages("")
+install.packages("nortest")
 
 library(caret)
 library(dummies)
 #library(dummy)
 library(e1071)
+library(nortest)
 
 
 datos <- read.csv('train.csv')
 
 set.seed(123)
-
-dum <- dummy(datos$SaleCondition)
-
 
 datos <- cbind(datos, dummy(datos$SaleCondition, verbose = T))
 
@@ -23,8 +21,33 @@ corte <- sample(nrow(datos), nrow(datos)*0.7)
 train <- datos[corte,]
 test <- datos[-corte,]
 
+#-------------Normalidad-------
+
+plot(datos$SaleCondition)
+
+hist(datos$SalePrice)
+hist(datos$X1stFlrSF)
+hist(datos$GrLivArea)
+
+shapiro.test(datos$SalePrice)
+shapiro.test(datos$X1stFlrSF)
+shapiro.test(datos$GrLivArea)
+
+plot(density(datos$SalePrice))
+plot(density(datos$X1stFlrSF))
+plot(density(datos$GrLivArea))
+
+#opcional
+lillie.test(datos$SalePrice)
+lillie.test(datos$X1stFlrSF)
+lillie.test(datos$GrLivArea)
+
+
+
 #------------------DESDE ACA TENGO DUDA----------------
 modelo <- glm(datosNormal~., data = train[,c(44, 47, 81, 86)], family = binomial(), maxit=100)
+
+plot(modelo)
 
 
 
