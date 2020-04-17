@@ -52,14 +52,23 @@ lillie.test(datos$GrLivArea)
 
 #------------------DESDE ACA TENGO DUDA----------------
 modelo <- glm(datosNormal~., data = train[,c(44, 47, 81, 86)], family = binomial(), maxit=100)
-
-plot(modelo)
-
-
-
 pred <- predict(modelo, newdata = test[,c(44, 47, 81)], type = "response")
 prediccion<-ifelse(pred>=0.5,1,0)
 confusionMatrix(as.factor(test$datosNormal),as.factor(prediccion))
+
+
+
+#-----------------------------------------------------
+modelo2 <- glm(datosAbnorml~., data = train[,c(44, 47, 81, 82)], family = binomial(), maxit=100)
+pred2 <- predict(modelo2, newdata = test[,c(44, 47, 81)], type = "response")
+prediccion2<-ifelse(pred>=0.5,1,0)
+confusionMatrix(as.factor(test$datosAbnorml),as.factor(prediccion2))
+
+#--------------------------------------------------------------------------
+modelo3 <- glm(datosPartial~., data = train[,c(44, 47, 81, 87)], family = binomial(), maxit=100)
+pred3 <- predict(modelo3, newdata = test[,c(44, 47, 81)], type = "response")
+prediccion3<-ifelse(pred>=0.5,1,0)
+confusionMatrix(as.factor(test$datosPartial),as.factor(prediccion3))
 #------------------HASTA ACA------------------------------
 
 
