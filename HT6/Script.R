@@ -67,7 +67,7 @@ confusionMatrix(as.factor(test$datosAbnorml),as.factor(prediccion2))
 #--------------------------------------------------------------------------
 modelo3 <- glm(datosPartial~., data = train[,c(44, 47, 81, 87)], family = binomial(), maxit=100)
 pred3 <- predict(modelo3, newdata = test[,c(44, 47, 81)], type = "response")
-prediccion3<-ifelse(pred>=0.5,1,0)
+prediccion3<-ifelse(pred3>=0.5,1,0)
 confusionMatrix(as.factor(test$datosPartial),as.factor(prediccion3))
 #------------------HASTA ACA------------------------------
 
